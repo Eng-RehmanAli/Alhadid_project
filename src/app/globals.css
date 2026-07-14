@@ -18,6 +18,8 @@
   --glass-border: rgba(255, 255, 255, 0.35);
   /* Unified heading color across all light pages */
   --heading: var(--teal);
+  /* Approximate closed header bar (logo + vertical padding) */
+  --site-header-height: 4.75rem;
 
   /* aliases used across components */
   --void: var(--teal);
