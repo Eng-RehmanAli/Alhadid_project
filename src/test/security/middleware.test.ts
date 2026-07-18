@@ -41,6 +41,20 @@ describe("proxy route protection (security)", () => {
     expect(res.status).toBe(200);
   });
 
+  it("redirects unauthenticated users from /dashboard to /join", () => {
+    const res = proxy(request("/dashboard"));
+    expect(res.status).toBe(307);
+    expect(res.headers.get("location")).toContain("/join?next=%2Fdashboard");
+  });
+
+  it("redirects unauthenticated users from /learn to /join", () => {
+    const res = proxy(request("/learn/nlp-beginner"));
+    expect(res.status).toBe(307);
+    expect(res.headers.get("location")).toContain(
+      "/join?next=%2Flearn%2Fnlp-beginner",
+    );
+  });
+
   it("does not guard public routes like /login", () => {
     const res = proxy(request("/login"));
     expect(res.status).toBe(200);

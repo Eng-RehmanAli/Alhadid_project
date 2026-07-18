@@ -12,6 +12,7 @@ const user: SessionUser = {
   id: "507f1f77bcf86cd799439011",
   name: "Test User",
   email: "test@alhadid.org",
+  role: "student",
 };
 
 function signPayload(body: object, kind: "access" | "refresh") {

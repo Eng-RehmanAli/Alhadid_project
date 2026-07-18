@@ -119,11 +119,11 @@ export function HomeHero({ featureStrip, glassStats }: HomeHeroProps) {
                 className="absolute left-0 top-6 z-10 w-[48%] min-w-0 sm:-left-4 sm:top-8 sm:w-[48%] lg:-left-6"
               >
                 <TiltCard float className="rounded-2xl p-3 sm:p-4">
+                  <p className="stat-value font-[family-name:var(--font-display)] font-extrabold">
+                    <CountUp value={glassStats[0].value} />
+                  </p>
                   <p className="stat-label text-[0.65rem] font-bold uppercase sm:text-xs">
                     {glassStats[0].label}
-                  </p>
-                  <p className="stat-value mt-1.5 font-[family-name:var(--font-display)] font-extrabold">
-                    <CountUp value={glassStats[0].value} />
                   </p>
                 </TiltCard>
               </StatPop>
@@ -134,11 +134,11 @@ export function HomeHero({ featureStrip, glassStats }: HomeHeroProps) {
                 className="absolute right-0 top-[38%] z-10 w-[48%] min-w-0 sm:-right-4 sm:w-[48%] lg:-right-8"
               >
                 <TiltCard float className="rounded-2xl p-3 sm:p-4" maxTilt={12}>
+                  <p className="stat-value font-[family-name:var(--font-display)] font-extrabold">
+                    <CountUp value={glassStats[1].value} />
+                  </p>
                   <p className="stat-label text-[0.65rem] font-bold uppercase sm:text-xs">
                     {glassStats[1].label}
-                  </p>
-                  <p className="stat-value mt-1.5 font-[family-name:var(--font-display)] font-extrabold">
-                    <CountUp value={glassStats[1].value} />
                   </p>
                 </TiltCard>
               </StatPop>
@@ -146,14 +146,14 @@ export function HomeHero({ featureStrip, glassStats }: HomeHeroProps) {
               <StatPop
                 immediate
                 delayMs={1020}
-                className="absolute bottom-4 left-[4%] z-10 w-[66%] min-w-0 sm:bottom-10 sm:left-[2%] sm:w-[60%]"
+                className="absolute bottom-4 left-[4%] z-10 w-[72%] min-w-0 sm:bottom-10 sm:left-[2%] sm:w-[64%]"
               >
                 <TiltCard float className="rounded-2xl p-3 sm:p-4" maxTilt={8}>
+                  <p className="stat-value font-[family-name:var(--font-display)] font-extrabold">
+                    <CountUp value={glassStats[2].value} />
+                  </p>
                   <p className="stat-label text-[0.65rem] font-bold uppercase sm:text-xs">
                     {glassStats[2].label}
-                  </p>
-                  <p className="stat-value mt-1.5 font-[family-name:var(--font-display)] font-extrabold">
-                    <CountUp value={glassStats[2].value} />
                   </p>
                 </TiltCard>
               </StatPop>
@@ -162,7 +162,7 @@ export function HomeHero({ featureStrip, glassStats }: HomeHeroProps) {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto -mb-20 -mt-6 max-w-6xl px-5 pb-8 md:-mb-28 md:px-8">
+      <div className="relative z-10 mx-auto mt-4 max-w-6xl px-5 pb-12 pt-4 md:mt-6 md:px-8 md:pb-16 md:pt-6">
         <Reveal variant="scale">
           <div className="grid gap-2 rounded-[1.75rem] border border-white/40 bg-white p-3 text-ink shadow-[0_24px_60px_rgba(0,40,45,0.18)] sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 lg:p-2">
             {featureStrip.map((item) => (
@@ -184,7 +184,7 @@ export function HomeHero({ featureStrip, glassStats }: HomeHeroProps) {
                   {item.icon}
                 </div>
                 <h3 className="font-bold">{item.title}</h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
+                <p className="mt-2 text-sm leading-relaxed text-muted">
                   {item.description}
                 </p>
               </div>

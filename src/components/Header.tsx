@@ -21,6 +21,54 @@ type HeaderProps = {
   user: { name: string; email: string } | null;
 };
 
+function DashboardNameToggle({
+  name,
+  email,
+  onAfterClick,
+  className = "",
+}: {
+  name: string;
+  email: string;
+  onAfterClick?: () => void;
+  className?: string;
+}) {
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  useEffect(() => {
+    const reduce =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      // Skip animation — land on the clear Dashboard label.
+      setShowDashboard(true);
+      return;
+    }
+    // Name first, then switch once to Dashboard and stay.
+    const id = window.setTimeout(() => {
+      setShowDashboard(true);
+    }, 2000);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  const label = showDashboard ? "Dashboard" : name;
+
+  return (
+    <Link
+      href="/dashboard"
+      onClick={onAfterClick}
+      className={`inline-flex min-h-9 min-w-[7.5rem] max-w-[11rem] items-center justify-center truncate text-sm font-semibold transition-colors hover:text-white ${
+        showDashboard ? "text-lime" : "text-white/90"
+      } ${className}`}
+      title={`Go to dashboard · ${email}`}
+      aria-label={`${name} — open Dashboard`}
+    >
+      <span key={label} className="animate-fade-in truncate">
+        {label}
+      </span>
+    </Link>
+  );
+}
+
 function AuthControls({
   user,
   className = "",
@@ -38,14 +86,11 @@ function AuthControls({
   if (user) {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
-        <Link
-          href="/account"
-          onClick={onAfterClick}
-          className="max-w-[10rem] truncate text-sm font-medium text-white/85 hover:text-white"
-          title={user.email}
-        >
-          {user.name}
-        </Link>
+        <DashboardNameToggle
+          name={user.name}
+          email={user.email}
+          onAfterClick={onAfterClick}
+        />
         <form action={logoutAction}>
           <button type="submit" className={baseClass} onClick={onAfterClick}>
             {withDot ? (
@@ -192,11 +237,11 @@ export function Header({ user }: HeaderProps) {
           ))}
           {user ? (
             <Link
-              href="/account"
+              href="/dashboard"
               className="rounded-xl px-3 py-3 text-base text-white/90 hover:bg-white/5"
               onClick={() => setOpen(false)}
             >
-              Account
+              Dashboard
             </Link>
           ) : null}
           <AuthControls

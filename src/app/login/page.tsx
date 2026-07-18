@@ -16,14 +16,16 @@ export default async function LoginPage({
   searchParams: Promise<{ next?: string }>;
 }) {
   const session = await getSession();
-  if (session) redirect("/");
+  if (session) redirect("/dashboard");
 
   const params = await searchParams;
-  const nextRaw = params.next ?? "/";
+  const nextRaw = params.next ?? "/dashboard";
   const next =
     nextRaw.startsWith("/") && !nextRaw.startsWith("//") && !nextRaw.includes("://")
-      ? nextRaw
-      : "/";
+      ? nextRaw === "/"
+        ? "/dashboard"
+        : nextRaw
+      : "/dashboard";
 
   return (
     <section className="relative isolate overflow-hidden grid-scene px-5 pb-20 pt-8 text-white md:px-8 md:pt-12">

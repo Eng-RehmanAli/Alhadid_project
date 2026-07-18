@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# user-uploaded avatars (keep folder via .gitkeep)
+/public/uploads/avatars/*
+!/public/uploads/avatars/.gitkeep
+
 # debug
 npm-debug.log*
 yarn-debug.log*

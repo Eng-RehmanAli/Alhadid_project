@@ -7,7 +7,7 @@ import { PasswordField } from "@/components/PasswordField";
 
 const initialState: AuthState = {};
 
-export default function SignupForm({ next = "/" }: { next?: string }) {
+export default function SignupForm({ next = "/dashboard" }: { next?: string }) {
   const [state, action, pending] = useActionState(signupAction, initialState);
 
   const field =

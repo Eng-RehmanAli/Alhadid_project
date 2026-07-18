@@ -4,7 +4,13 @@ import {
   REFRESH_COOKIE,
 } from "@/lib/session-constants";
 
-const PROTECTED_PREFIXES = ["/account", "/courses"];
+const PROTECTED_PREFIXES = [
+  "/account",
+  "/admin",
+  "/courses",
+  "/dashboard",
+  "/learn",
+];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -28,5 +34,15 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/account/:path*", "/courses", "/courses/:path*"],
+  matcher: [
+    "/account/:path*",
+    "/admin",
+    "/admin/:path*",
+    "/courses",
+    "/courses/:path*",
+    "/dashboard",
+    "/dashboard/:path*",
+    "/learn",
+    "/learn/:path*",
+  ],
 };

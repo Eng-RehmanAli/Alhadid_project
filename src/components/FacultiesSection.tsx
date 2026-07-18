@@ -32,7 +32,7 @@ export function FacultiesSection({
   return (
     <section
       className={`light-3d-scene text-ink ${
-        showIntro ? "pb-20 pt-28 md:pb-28 md:pt-36" : "py-16 md:py-24"
+        showIntro ? "pb-20 pt-16 md:pb-28 md:pt-20" : "py-16 md:py-24"
       } ${className}`}
       aria-label="Faculties"
     >

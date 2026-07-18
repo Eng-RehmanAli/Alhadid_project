@@ -9,7 +9,7 @@ import {
   verifyPassword,
 } from "@/lib/password";
 import { rateLimit } from "@/lib/rate-limit";
-import { User } from "@/models/User";
+import { normalizeRole, User } from "@/models/User";
 import {
   isValidEmail,
   normalizeEmail,
@@ -43,6 +43,26 @@ function withAuthToast(path: string, kind: "login" | "signup") {
   return `${url.pathname}${url.search}${url.hash}`;
 }
 
+/** Default post-auth landing is the LMS dashboard. */
+function postAuthPath(raw: FormDataEntryValue | null) {
+  const next = safeNextPath(raw);
+  return next === "/" ? "/dashboard" : next;
+}
+
+function toSessionUser(user: {
+  _id: { toString(): string } | string;
+  name: string;
+  email: string;
+  role?: unknown;
+}): SessionUser {
+  return {
+    id: String(user._id),
+    name: user.name,
+    email: user.email,
+    role: normalizeRole(user.role),
+  };
+}
+
 export async function signupAction(
   _prev: AuthState,
   formData: FormData,
@@ -58,7 +78,7 @@ export async function signupAction(
   const email = normalizeEmail(String(formData.get("email") ?? ""));
   const password = String(formData.get("password") ?? "");
   const confirm = String(formData.get("confirmPassword") ?? "");
-  const next = safeNextPath(formData.get("next"));
+  const next = postAuthPath(formData.get("next"));
 
   if (!name || name.length < 2) {
     return { error: "Please enter your full name." };
@@ -84,14 +104,11 @@ export async function signupAction(
     name,
     email,
     passwordHash,
+    role: "student",
     createdAt: new Date(),
   });
 
-  await createSession({
-    id: String(user._id),
-    name,
-    email,
-  });
+  await createSession(toSessionUser(user));
 
   redirect(withAuthToast(next, "signup"));
 }
@@ -109,7 +126,7 @@ export async function loginAction(
 
   const email = normalizeEmail(String(formData.get("email") ?? ""));
   const password = String(formData.get("password") ?? "");
-  const next = safeNextPath(formData.get("next"));
+  const next = postAuthPath(formData.get("next"));
 
   if (!email || !password) {
     return { error: "Please enter your email and password." };
@@ -126,16 +143,16 @@ export async function loginAction(
     return { error: "Invalid email or password." };
   }
 
+  if (user.disabled) {
+    return { error: "This account has been disabled. Contact support." };
+  }
+
   const valid = await verifyPassword(password, user.passwordHash);
   if (!valid) {
     return { error: "Invalid email or password." };
   }
 
-  await createSession({
-    id: String(user._id),
-    name: user.name,
-    email: user.email,
-  });
+  await createSession(toSessionUser(user));
 
   redirect(withAuthToast(next, "login"));
 }
@@ -147,6 +164,14 @@ export async function logoutAction() {
 
 export async function requireUser(): Promise<SessionUser> {
   const user = await getSession();
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=/dashboard");
+  return user;
+}
+
+export async function requireAdmin(): Promise<SessionUser> {
+  const user = await requireUser();
+  if (user.role !== "admin") {
+    redirect("/dashboard");
+  }
   return user;
 }

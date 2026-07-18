@@ -43,13 +43,16 @@ describe("Header", () => {
     expect(screen.queryByRole("button", { name: /log out/i })).not.toBeInTheDocument();
   });
 
-  it("shows account name and Log out when logged in", () => {
+  it("shows account name linking to dashboard and Log out when logged in", () => {
     render(
       <Header user={{ name: "Rehman", email: "rehman@example.com" }} />,
     );
 
-    const accountLinks = screen.getAllByRole("link", { name: "Rehman" });
-    expect(accountLinks[0]).toHaveAttribute("href", "/account");
+    const accountLinks = screen.getAllByRole("link", {
+      name: /rehman.*dashboard/i,
+    });
+    expect(accountLinks[0]).toHaveAttribute("href", "/dashboard");
+    expect(accountLinks[0]).toHaveTextContent("Rehman");
     expect(
       screen.getAllByRole("button", { name: /log out/i }).length,
     ).toBeGreaterThan(0);

@@ -40,6 +40,34 @@ export const founder = {
     { value: "Multiple", label: "Institutes Founded" },
     { value: "HOD", label: "Razi Unani Medical College" },
   ],
+  excellenceBubbles: [
+    {
+      title: "HOD",
+      subtitle: "Razi Unani Medical College, Gojra",
+    },
+    {
+      title: "Founder",
+      subtitle: "Al-Hadid Network",
+    },
+    {
+      title: "BEMS",
+      subtitle: "Eastern Medicine & Surgery",
+    },
+    {
+      title: "Global Certs",
+      subtitle: "Stanford · HKUST · Minnesota · Derby",
+    },
+    {
+      title: "Integrative Care",
+      subtitle: "Tradition meets modern science",
+    },
+  ],
+  certDetails: [
+    { school: "Stanford", focus: "Food & Nutrition" },
+    { school: "HKUST", focus: "Acupuncture & TCM" },
+    { school: "Minnesota", focus: "Herbal Medicine" },
+    { school: "Derby", focus: "Psychology" },
+  ],
   pillarsIntro:
     "Dr. Ramzan's vision for Al-Hadid is built upon a comprehensive framework designed to elevate the human condition across all vital dimensions of life.",
   pillars: [

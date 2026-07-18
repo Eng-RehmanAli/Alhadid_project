@@ -1,13 +1,12 @@
-import Image from "next/image";
 import { Button } from "@/components/Button";
 import { CourseCard } from "@/components/CourseCard";
 import { FacultiesSection } from "@/components/FacultiesSection";
+import { FounderPortrait } from "@/components/FounderPortrait";
 import { HomeHero } from "@/components/HomeHero";
 import { Light3DBackground } from "@/components/Light3DBackground";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { IntroRise } from "@/components/motion/IntroRise";
 import { MaskLine } from "@/components/motion/MaskLine";
-import { MediaReveal } from "@/components/motion/MediaReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { allCourses, featuredCourses } from "@/data/courses";
 import { site } from "@/data/site";
@@ -129,9 +128,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-bleed-teal grid-scene py-20 md:py-24">
+      <section className="section-bleed-teal grid-scene overflow-x-clip py-20 md:py-24">
         <Light3DBackground variant="dark" />
-        <div className="relative z-[1] mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2 md:px-8">
+        <div className="relative z-[1] mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-2 md:gap-16 md:px-8 lg:gap-20">
           <div>
             <IntroRise>
               <p className="text-sm font-semibold text-lime">{founder.role}</p>
@@ -151,17 +150,7 @@ export default function Home() {
               </div>
             </IntroRise>
           </div>
-          <MediaReveal delayMs={100}>
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-[2rem] border border-white/20 md:max-w-md">
-              <Image
-                src={founder.heroImage}
-                alt={founder.name}
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 768px) 90vw, 380px"
-              />
-            </div>
-          </MediaReveal>
+          <FounderPortrait />
         </div>
       </section>
 

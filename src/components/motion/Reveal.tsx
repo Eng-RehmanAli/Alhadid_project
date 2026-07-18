@@ -21,23 +21,26 @@ export function Reveal({
     const node = ref.current;
     if (!node) return;
 
+    const show = () => {
+      window.setTimeout(() => node.classList.add("is-visible"), delayMs);
+    };
+
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
-      node.classList.add("is-visible");
+      show();
       return;
     }
 
+    // threshold 0: any visible pixel counts. A higher ratio can never be met
+    // for sections taller than the viewport, which left admin panels blank.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          window.setTimeout(
-            () => node.classList.add("is-visible"),
-            delayMs,
-          );
+          show();
           observer.unobserve(node);
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -48px 0px" },
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
 
     observer.observe(node);

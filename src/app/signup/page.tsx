@@ -24,10 +24,11 @@ export default async function SignupPage({
   searchParams: Promise<{ next?: string }>;
 }) {
   const session = await getSession();
-  if (session) redirect("/");
+  if (session) redirect("/dashboard");
 
   const params = await searchParams;
-  const next = safeNext(params.next);
+  const nextRaw = safeNext(params.next);
+  const next = nextRaw === "/" ? "/dashboard" : nextRaw;
   const fromCourses = next === "/courses" || next.startsWith("/courses/");
 
   return (

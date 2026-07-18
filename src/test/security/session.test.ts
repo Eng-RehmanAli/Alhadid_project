@@ -45,7 +45,10 @@ const refreshTokenStore: Array<{
   expiresAt: Date;
 }> = [];
 
-const users = new Map<string, { _id: string; name: string; email: string }>();
+const users = new Map<
+  string,
+  { _id: string; name: string; email: string; role: string }
+>();
 
 vi.mock("@/models/RefreshToken", () => ({
   RefreshToken: {
@@ -95,12 +98,17 @@ vi.mock("@/models/User", () => ({
       lean: async () => users.get(String(id)) ?? null,
     })),
   },
+  normalizeRole: (role: unknown) => {
+    if (role === "admin") return "admin";
+    return "student";
+  },
 }));
 
 const user: SessionUser = {
   id: "507f1f77bcf86cd799439011",
   name: "Test User",
   email: "test@alhadid.org",
+  role: "student",
 };
 
 function hashToken(token: string) {
@@ -116,6 +124,7 @@ describe("session lifecycle", () => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      role: user.role,
     });
     vi.clearAllMocks();
   });

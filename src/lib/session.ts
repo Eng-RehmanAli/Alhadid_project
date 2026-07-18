@@ -2,7 +2,7 @@ import { createHash, createHmac, randomUUID, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
 import { connectMongo } from "@/lib/db";
 import { RefreshToken } from "@/models/RefreshToken";
-import { User } from "@/models/User";
+import { normalizeRole, User, type UserRole } from "@/models/User";
 import {
   ACCESS_COOKIE,
   ACCESS_MAX_AGE_SECONDS,
@@ -24,6 +24,7 @@ export type SessionUser = {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
 };
 
 type AccessPayload = SessionUser & {
@@ -117,8 +118,25 @@ function isAccessPayload(data: unknown): data is AccessPayload {
     typeof d.id === "string" &&
     typeof d.name === "string" &&
     typeof d.email === "string" &&
-    typeof d.exp === "number"
+    typeof d.exp === "number" &&
+    (d.role === undefined ||
+      d.role === "student" ||
+      d.role === "admin")
   );
+}
+
+function toSessionUser(user: {
+  _id: { toString(): string } | string;
+  name: string;
+  email: string;
+  role?: unknown;
+}): SessionUser {
+  return {
+    id: String(user._id),
+    name: user.name,
+    email: user.email,
+    role: normalizeRole(user.role),
+  };
 }
 
 function isRefreshPayload(data: unknown): data is RefreshPayload {
@@ -142,6 +160,7 @@ export function createAccessToken(user: SessionUser) {
     id: user.id,
     name: user.name,
     email: user.email,
+    role: normalizeRole(user.role),
     exp: nowSec() + ACCESS_MAX_AGE_SECONDS,
   };
   return encodeSigned(body, "access");
@@ -162,7 +181,12 @@ export function verifyAccessToken(token: string): SessionUser | null {
   const data = decodeSigned(token, "access");
   if (!isAccessPayload(data)) return null;
   if (data.exp < nowSec()) return null;
-  return { id: data.id, name: data.name, email: data.email };
+  return {
+    id: data.id,
+    name: data.name,
+    email: data.email,
+    role: normalizeRole(data.role),
+  };
 }
 
 export function verifyRefreshTokenShape(token: string): RefreshPayload | null {
@@ -242,11 +266,13 @@ export async function refreshAccessToken(): Promise<SessionUser | null> {
     return null;
   }
 
-  const sessionUser: SessionUser = {
-    id: String(user._id),
-    name: user.name,
-    email: user.email,
-  };
+  if (user.disabled) {
+    await RefreshToken.deleteMany({ userId: payload.id });
+    await clearAuthCookies();
+    return null;
+  }
+
+  const sessionUser = toSessionUser(user);
 
   // Rotate refresh token
   await RefreshToken.deleteOne({ _id: stored._id });
@@ -287,12 +313,9 @@ export async function getSession(): Promise<SessionUser | null> {
 
   const user = await User.findById(payload.id).lean();
   if (!user) return null;
+  if (user.disabled) return null;
 
-  return {
-    id: String(user._id),
-    name: user.name,
-    email: user.email,
-  };
+  return toSessionUser(user);
 }
 
 export async function destroySession() {
