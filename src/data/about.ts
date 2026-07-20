@@ -31,6 +31,16 @@ export const aboutPage = {
   closingTitle: "Al Hadid",
   closingBody:
     "An institution dedicated to the holistic development of human potential through the integration of traditional wisdom and contemporary knowledge.",
+  partnershipLabel: "Technology partner",
+  partnershipTitle: "Built with TechCognify",
+  partnershipLead:
+    "This Learning Management System is a combined effort of Al Hadid and TechCognify — a strategic partnership to deliver modern, accessible education online.",
+  partnershipBody:
+    "Announced on 14 July 2026, the collaboration brings together Al Hadid’s academic vision under Dr. Muzammil Ramzan with TechCognify’s product and engineering leadership under Ibrahim Bajwa. Together we are building the Al Hadid LMS so students and professionals can learn with clarity, structure, and care.",
+  partnershipImage: "/brand/techcognify-collaboration.png",
+  partnershipCtaLabel: "Visit TechCognify",
+  partnershipCtaHref: "https://www.techcognify.com",
+  partnershipDate: "14 July 2026",
 } as const;
 
 export const aboutPillars = [

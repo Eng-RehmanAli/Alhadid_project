@@ -11,6 +11,7 @@ const nav = [
   { href: "/", label: "Home" },
   { href: "/courses", label: "Courses" },
   { href: "/faculties", label: "Faculties" },
+  { href: "/fellowship", label: "Fellowship" },
   { href: "/books", label: "Books" },
   { href: "/articles", label: "Articles" },
   { href: "/about", label: "About" },
@@ -162,7 +163,7 @@ export function Header({ user }: HeaderProps) {
           />
         </Link>
 
-        <nav className="hidden items-center gap-5 text-sm font-medium text-white/80 xl:gap-7 lg:flex">
+        <nav className="hidden items-center gap-4 text-sm font-medium text-white/80 xl:gap-6 xl:flex">
           {nav.map((item) => {
             const active =
               item.href === "/"
@@ -185,13 +186,13 @@ export function Header({ user }: HeaderProps) {
           })}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 xl:flex">
           <AuthControls user={user} withDot />
         </div>
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 text-white lg:hidden"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 text-white xl:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -220,7 +221,7 @@ export function Header({ user }: HeaderProps) {
 
       <div
         id="mobile-nav"
-        className={`border-t border-white/15 bg-teal-dark lg:hidden ${
+        className={`border-t border-white/15 bg-teal-dark xl:hidden ${
           open ? "block" : "hidden"
         }`}
       >

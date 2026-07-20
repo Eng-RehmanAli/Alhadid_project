@@ -73,6 +73,10 @@ describe("Header", () => {
       "href",
       "/courses",
     );
+    expect(nav.getByRole("link", { name: "Fellowship" })).toHaveAttribute(
+      "href",
+      "/fellowship",
+    );
     expect(nav.getByRole("link", { name: "Contact" })).toHaveAttribute(
       "href",
       "/contact",

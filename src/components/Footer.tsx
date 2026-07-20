@@ -11,6 +11,7 @@ import { founder } from "@/data/founder";
 const links = [
   { href: "/courses", label: "Courses" },
   { href: "/faculties", label: "Faculties" },
+  { href: "/fellowship", label: "Fellowship" },
   { href: "/about", label: "About" },
   { href: "/founder", label: "Founder" },
   { href: "/books", label: "Books" },
@@ -127,7 +128,8 @@ export function Footer() {
   const hideCta =
     pathname.startsWith("/login") ||
     pathname.startsWith("/signup") ||
-    pathname.startsWith("/courses");
+    pathname.startsWith("/courses") ||
+    pathname.startsWith("/fellowship");
 
   return (
     <footer className="mt-auto text-white">
@@ -144,11 +146,15 @@ export function Footer() {
                 <span className="text-lime">transformation</span>
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-white/70">
-                Explore programs and begin your journey with Al Hadid.
+                Join the Fellowship for early access to Al Hadid&apos;s learning
+                platform, or explore programs open now.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <Button href="/courses">Explore courses</Button>
+              <Button href="/fellowship">Join the Fellowship</Button>
+              <Button href="/courses" variant="secondary">
+                Explore courses
+              </Button>
             </div>
           </div>
         </div>
@@ -261,11 +267,31 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/10 bg-black/10">
-          <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-5 text-xs text-white/45 md:flex-row md:items-center md:justify-between md:px-8">
-            <p>
-              © {new Date().getFullYear()} {site.name} Muslims Network. All
-              rights reserved.
-            </p>
+          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-5 text-xs text-white/45 md:flex-row md:items-center md:justify-between md:px-8">
+            <div className="space-y-2">
+              <p>
+                © {new Date().getFullYear()} {site.name} Muslims Network. All
+                rights reserved.
+              </p>
+              <p className="text-white/55">
+                {site.partner.blurb}{" "}
+                <a
+                  href={site.partner.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-lime/90 transition-colors hover:text-lime"
+                >
+                  {site.partner.name}
+                </a>
+                {" · "}
+                <Link
+                  href="/about#technology-partner"
+                  className="transition-colors hover:text-white"
+                >
+                  Learn more
+                </Link>
+              </p>
+            </div>
             <div className="flex gap-5">
               <Link
                 href="/contact"

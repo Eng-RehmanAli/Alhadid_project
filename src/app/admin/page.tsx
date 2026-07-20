@@ -467,6 +467,13 @@ export default async function AdminPage() {
                 entries={waitlist.map((w) => ({
                   id: String(w._id),
                   name: w.name,
+                  age: typeof w.age === "number" ? w.age : null,
+                  city: w.city ?? null,
+                  profession: w.profession ?? null,
+                  whatsapp: w.whatsapp ?? null,
+                  email: w.email ?? null,
+                  university: w.university ?? null,
+                  source: w.source ?? null,
                   createdAt: w.createdAt
                     ? new Date(w.createdAt).toISOString()
                     : null,

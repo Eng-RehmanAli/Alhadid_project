@@ -10,9 +10,12 @@ import { Reveal } from "@/components/motion/Reveal";
 import { StatPop } from "@/components/motion/StatPop";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { site } from "@/data/site";
+import { testimonials } from "@/data/engagement";
 
 const heroImage =
   "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80";
+
+const heroAvatars = testimonials.slice(0, 3);
 
 type FeatureItem = {
   title: string;
@@ -71,12 +74,21 @@ export function HomeHero({ featureStrip, glassStats }: HomeHeroProps) {
             <IntroRise immediate delayMs={760}>
               <div className="mt-10 flex items-center gap-3 sm:gap-4">
                 <div className="flex shrink-0 -space-x-3">
-                  {[0, 1, 2].map((i) => (
+                  {heroAvatars.map((person, i) => (
                     <span
-                      key={i}
-                      className="inline-block h-9 w-9 rounded-full border-2 border-teal bg-gradient-to-br from-white/40 to-lime/50 sm:h-10 sm:w-10"
+                      key={person.name}
+                      className="relative inline-block h-9 w-9 overflow-hidden rounded-full border-2 border-teal bg-teal-deep sm:h-10 sm:w-10"
                       style={{ zIndex: 3 - i }}
-                    />
+                      title={person.name}
+                    >
+                      <Image
+                        src={person.image}
+                        alt={person.name}
+                        fill
+                        className="object-cover object-top"
+                        sizes="40px"
+                      />
+                    </span>
                   ))}
                 </div>
                 <div className="min-w-0">

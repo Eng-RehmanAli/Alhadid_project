@@ -71,10 +71,7 @@ async function seed() {
   let testimonialCount = 0;
   for (const testimonial of testimonials) {
     await Testimonial.findOneAndUpdate(
-      {
-        name: testimonial.name,
-        quote: testimonial.quote,
-      },
+      { name: testimonial.name },
       { $set: testimonial },
       { upsert: true, returnDocument: "after" },
     );

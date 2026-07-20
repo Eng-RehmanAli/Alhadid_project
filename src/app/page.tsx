@@ -7,11 +7,14 @@ import { Light3DBackground } from "@/components/Light3DBackground";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { IntroRise } from "@/components/motion/IntroRise";
 import { MaskLine } from "@/components/motion/MaskLine";
+import { MediaReveal } from "@/components/motion/MediaReveal";
 import { Reveal } from "@/components/motion/Reveal";
+import { aboutPage } from "@/data/about";
 import { allCourses, featuredCourses } from "@/data/courses";
 import { site } from "@/data/site";
 import { founder } from "@/data/founder";
 import { books, booksPage } from "@/data/books";
+import Image from "next/image";
 
 const featureStrip = [
   {
@@ -55,12 +58,13 @@ export default function Home() {
 
       <FacultiesSection
         eyebrow="Academic Divisions"
-        heading="Our Faculties"
+        heading="Four faculties of growth"
         subheading={site.facultiesIntro}
         items={site.faculties.map((faculty, i) => ({
           image: faculty.image,
           number: String(i + 1).padStart(2, "0"),
           title: faculty.title,
+          focus: faculty.focus,
           description: faculty.description,
           link: `/faculties/${faculty.slug}`,
         }))}
@@ -93,8 +97,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <TestimonialsSection />
 
       <section className="section-bleed-light light-3d-scene py-20 md:py-28">
         <Light3DBackground />
@@ -151,6 +153,63 @@ export default function Home() {
             </IntroRise>
           </div>
           <FounderPortrait />
+        </div>
+      </section>
+
+      <TestimonialsSection />
+
+      <section
+        id="technology-partner"
+        className="section-bleed-light light-3d-scene scroll-mt-28 py-20 md:py-28"
+      >
+        <Light3DBackground />
+        <div className="relative z-[1] mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2 md:gap-14 md:px-8">
+          <div>
+            <IntroRise>
+              <p className="text-sm font-semibold text-teal-deep">
+                {aboutPage.partnershipLabel}
+              </p>
+            </IntroRise>
+            <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl font-bold md:text-4xl">
+              <MaskLine>{aboutPage.partnershipTitle}</MaskLine>
+            </h2>
+            <IntroRise delayMs={120}>
+              <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-muted">
+                <p>{aboutPage.partnershipLead}</p>
+                <p>{aboutPage.partnershipBody}</p>
+              </div>
+              <p className="mt-5 text-sm font-semibold text-teal-deep">
+                {aboutPage.partnershipDate}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button
+                  href={aboutPage.partnershipCtaHref}
+                  variant="onLight"
+                  external
+                >
+                  {aboutPage.partnershipCtaLabel}
+                </Button>
+                <Button
+                  href="/about#technology-partner"
+                  variant="secondary"
+                  className="!border-teal/30 !text-teal-dark hover:!bg-white"
+                >
+                  About Al Hadid
+                </Button>
+              </div>
+            </IntroRise>
+          </div>
+          <MediaReveal delayMs={80}>
+            <div className="relative aspect-square overflow-hidden rounded-3xl shadow-[0_16px_40px_rgba(14,106,111,0.12)]">
+              <Image
+                src={aboutPage.partnershipImage}
+                alt="Collaboration announcement between Al Hadid and TechCognify — signing of the LMS partnership"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain"
+              />
+            </div>
+          </MediaReveal>
         </div>
       </section>
 
@@ -222,9 +281,9 @@ export default function Home() {
           </IntroRise>
           <IntroRise delayMs={240}>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
-              <Button href="/courses">View courses</Button>
-              <Button href="/contact" variant="secondary">
-                Contact us
+              <Button href="/fellowship">Join the Fellowship</Button>
+              <Button href="/courses" variant="secondary">
+                View courses
               </Button>
             </div>
           </IntroRise>

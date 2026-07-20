@@ -4,9 +4,13 @@ const testimonialSchema = new Schema(
   {
     name: { type: String, required: true, trim: true },
     role: { type: String, required: true, trim: true },
-    faculty: { type: String, required: true, trim: true },
-    quote: { type: String, required: true },
-    outcome: { type: String, required: true },
+    bio: { type: String, trim: true },
+    image: { type: String, required: true, trim: true },
+    imagePosition: {
+      type: String,
+      enum: ["center", "top"],
+      default: "top",
+    },
   },
   { collection: "testimonials", timestamps: true },
 );

@@ -208,6 +208,54 @@ export default function AboutPage() {
             </IntroRise>
           </div>
 
+          {/* Technology partnership — Al Hadid × TechCognify */}
+          <div
+            id="technology-partner"
+            className="mt-20 scroll-mt-28 md:mt-28"
+          >
+            <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
+              <div>
+                <IntroRise>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-teal-deep">
+                    {aboutPage.partnershipLabel}
+                  </p>
+                </IntroRise>
+                <h2 className="mt-4 font-[family-name:var(--font-display)] text-3xl font-semibold text-teal md:text-4xl">
+                  <MaskLine>{aboutPage.partnershipTitle}</MaskLine>
+                </h2>
+                <IntroRise delayMs={100}>
+                  <div className="mt-6 space-y-4 text-base leading-relaxed text-muted">
+                    <p>{aboutPage.partnershipLead}</p>
+                    <p>{aboutPage.partnershipBody}</p>
+                  </div>
+                  <p className="mt-5 text-sm font-semibold text-teal-deep">
+                    {aboutPage.partnershipDate}
+                  </p>
+                  <div className="mt-8">
+                    <Button
+                      href={aboutPage.partnershipCtaHref}
+                      variant="onLight"
+                      external
+                    >
+                      {aboutPage.partnershipCtaLabel}
+                    </Button>
+                  </div>
+                </IntroRise>
+              </div>
+              <MediaReveal delayMs={80}>
+                <div className="relative aspect-square overflow-hidden rounded-3xl shadow-[0_16px_40px_rgba(14,106,111,0.12)]">
+                  <Image
+                    src={aboutPage.partnershipImage}
+                    alt="Collaboration announcement between Al Hadid and TechCognify — signing of the LMS partnership"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                </div>
+              </MediaReveal>
+            </div>
+          </div>
+
           {/* Closing + CTAs */}
           <div className="mt-20 rounded-3xl border border-line-dark bg-white/90 p-8 shadow-[0_16px_40px_rgba(14,106,111,0.08)] md:mt-28 md:p-10">
             <IntroRise>

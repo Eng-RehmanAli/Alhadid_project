@@ -16,36 +16,40 @@ export const site = {
     { value: "500+", label: "Active Students" },
   ],
   facultiesIntro:
-    "Four distinct divisions dedicated to the comprehensive development of human potential, bridging timeless traditions with modern science.",
+    "Physical vitality, mental clarity, spiritual depth, and practical leadership — four faculties, one integrated path of growth.",
   faculties: [
     {
       slug: "complementary-medicine",
       title: "Complementary Medicine",
+      focus: "Body & healing",
       description:
-        "Integrating traditional and modern healing practices including acupuncture, Unani medicine, herbal remedies, nutrition science, and cupping therapy for holistic wellness.",
+        "Traditional and modern healing — acupuncture, Unani medicine, herbal care, nutrition, and cupping — taught as one practice of whole-person wellness.",
       image:
         "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1600&q=80",
     },
     {
       slug: "mind-sciences",
       title: "Mind Sciences",
+      focus: "Mind & attention",
       description:
-        "Exploring cognitive science, neuro-linguistic programming, applied psychology, and the Silva Method to unlock human potential and psychological transformation.",
+        "NLP, applied psychology, and the Silva Method — practical training for attention, emotional mastery, and deliberate inner change.",
       image: "/brand/mind-sciences.jpg",
     },
     {
       slug: "islamic-studies",
       title: "Islamic Studies",
+      focus: "Faith & character",
       description:
-        "Studying Quranic thought, Seerah, spiritual psychology, and Islamic ethics to integrate faith-based wisdom with contemporary human development.",
+        "Quranic thought, Seerah, spiritual psychology, and ethics — faith-based wisdom applied to modern life and character.",
       image:
         "https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1600&q=80",
     },
     {
       slug: "leadership-strategy",
       title: "Leadership and Strategy",
+      focus: "Action & influence",
       description:
-        "Mastering decision-making frameworks, influence dynamics, systems thinking, and historical leadership models for organizational and personal excellence.",
+        "Decision frameworks, influence dynamics, and systems thinking — leadership as craft, grounded in integrity.",
       image:
         "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=80",
     },
@@ -76,6 +80,12 @@ export const site = {
   ctaTitle: "Begin your journey of transformation",
   ctaBody:
     "Explore our comprehensive programs designed to cultivate wisdom, health, and purposeful action.",
+  partner: {
+    label: "Technology partner",
+    name: "TechCognify",
+    href: "https://www.techcognify.com",
+    blurb: "LMS developed in partnership with",
+  },
   contactEmail: "mailto:founder@alhadid.org",
   contact: {
     title: "Contact us",

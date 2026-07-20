@@ -97,6 +97,13 @@ export function WaitlistPanel({
   entries: {
     id: string;
     name: string;
+    age: number | null;
+    city: string | null;
+    profession: string | null;
+    whatsapp: string | null;
+    email: string | null;
+    university: string | null;
+    source: string | null;
     createdAt: string | null;
   }[];
 }) {
@@ -120,43 +127,83 @@ export function WaitlistPanel({
       {entries.length === 0 ? (
         <p className="text-sm text-muted">Waitlist is empty.</p>
       ) : (
-        <div className="overflow-x-auto rounded-2xl border border-line-dark bg-white">
-          <table className="w-full min-w-[420px] text-left text-sm">
-            <thead className="border-b border-line-dark text-xs font-semibold uppercase tracking-[0.12em] text-muted">
-              <tr>
-                <th className="px-5 py-3">Name</th>
-                <th className="px-5 py-3">Joined</th>
-                <th className="px-5 py-3">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-line-dark">
-              {entries.map((entry) => (
-                <tr key={entry.id}>
-                  <td className="px-5 py-3 font-medium text-ink">
-                    {entry.name}
-                  </td>
-                  <td className="px-5 py-3 text-muted">
+        <ul className="divide-y divide-line-dark rounded-2xl border border-line-dark bg-white">
+          {entries.map((entry) => (
+            <li key={entry.id} className="space-y-3 p-5">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="font-medium text-ink">{entry.name}</p>
+                  <p className="mt-1 text-xs text-muted">
                     {entry.createdAt
                       ? dateFormat.format(new Date(entry.createdAt))
                       : "—"}
-                  </td>
-                  <td className="px-5 py-3">
-                    <form action={action}>
-                      <input type="hidden" name="entryId" value={entry.id} />
-                      <button
-                        type="submit"
-                        disabled={pending}
-                        className="rounded-full border border-red-200 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:opacity-60"
-                      >
-                        Remove
-                      </button>
-                    </form>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                    {entry.source ? ` · ${entry.source}` : ""}
+                  </p>
+                </div>
+                <form action={action}>
+                  <input type="hidden" name="entryId" value={entry.id} />
+                  <button
+                    type="submit"
+                    disabled={pending}
+                    className="rounded-full border border-red-200 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:opacity-60"
+                  >
+                    Remove
+                  </button>
+                </form>
+              </div>
+              <dl className="grid gap-2 text-sm sm:grid-cols-2">
+                {entry.age != null ? (
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.12em] text-muted">
+                      Age
+                    </dt>
+                    <dd className="mt-0.5 text-ink">{entry.age}</dd>
+                  </div>
+                ) : null}
+                {entry.city ? (
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.12em] text-muted">
+                      City
+                    </dt>
+                    <dd className="mt-0.5 text-ink">{entry.city}</dd>
+                  </div>
+                ) : null}
+                {entry.profession ? (
+                  <div className="sm:col-span-2">
+                    <dt className="text-xs uppercase tracking-[0.12em] text-muted">
+                      Profession
+                    </dt>
+                    <dd className="mt-0.5 text-ink">{entry.profession}</dd>
+                  </div>
+                ) : null}
+                {entry.whatsapp ? (
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.12em] text-muted">
+                      WhatsApp
+                    </dt>
+                    <dd className="mt-0.5 text-ink">{entry.whatsapp}</dd>
+                  </div>
+                ) : null}
+                {entry.email ? (
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.12em] text-muted">
+                      Email
+                    </dt>
+                    <dd className="mt-0.5 break-all text-ink">{entry.email}</dd>
+                  </div>
+                ) : null}
+                {entry.university ? (
+                  <div className="sm:col-span-2">
+                    <dt className="text-xs uppercase tracking-[0.12em] text-muted">
+                      University
+                    </dt>
+                    <dd className="mt-0.5 text-ink">{entry.university}</dd>
+                  </div>
+                ) : null}
+              </dl>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
